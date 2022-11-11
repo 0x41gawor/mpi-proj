@@ -2,8 +2,10 @@
 
 public class Time
 {
-    public Sim.Event Run()
+    public Sim.Event Run(ref Sim.EventList eventList, ref double simTime)
     {
-        return new Sim.Event(0.0, Sim.EventTypeEnum.Departure);
+        Sim.Event e = eventList.Pop();
+        simTime = e.Time;
+        return e;
     }
 }

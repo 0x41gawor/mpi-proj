@@ -2,17 +2,38 @@
 
 public class EventList
 {
-    private Queue<Event> _body;
-    public Event e; 
+    private PriorityQueue<Event, double> _body;
 
-
-    private Event Pop()
+    public EventList()
     {
-        return new Event(0.0, EventTypeEnum.Arrival);
+        _body = new PriorityQueue<Event, double>();
     }
 
-
-    private void Push(Event e)
+    public Event Pop()
     {
+        return _body.Dequeue();
+    }
+    
+    public void Push(Event e)
+    {
+        _body.Enqueue(e, e.Time);
+    }
+
+    public override string ToString()
+    {
+        PriorityQueue<Event, double> copy;
+        var result = "EventList: [ ";
+        
+        copy = _body;//TODO For now, copy is not a real copy of body, printing removes events from evenList
+
+        while (copy.Count > 1)
+        {
+            result += copy.Dequeue() + ", ";
+        }
+
+        result += copy.Dequeue();
+        result += " ]";
+        
+        return result;
     }
 }

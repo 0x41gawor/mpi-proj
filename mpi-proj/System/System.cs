@@ -6,8 +6,16 @@ public class System
     private Queue _queue;
 
 
-    private void init()
+    public System()
     {
+        _server = new Server();
+        _queue = new Queue();
+    }
+    
+    public void Init()
+    {
+        _server.Status = ServerStatusEnum.Free;
+        //TODO Stats to be implemented
         
     }
 }

@@ -10,4 +10,11 @@ public class Event
         _time = time;
         _type = type;
     }
+    
+    public double Time => _time;
+
+    public override string ToString()
+    {
+        return $"Event(time: {_time}, type: {_type})";
+    }
 }
