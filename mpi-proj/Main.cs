@@ -7,7 +7,7 @@ public class Main
     private Sim.EventList _eventList;
     
     //Algorithms
-    private Algorithm.Init _algInit;
+    private readonly Algorithm.Init _algInit;
     private Algorithm.Time _algTime;
     private Algorithm.Event _algEvent;
 

@@ -21,17 +21,23 @@ public class EventList
 
     public override string ToString()
     {
-        PriorityQueue<Event, double> copy;
         var result = "EventList: [ ";
+
+        var recreationList = new List<Event>();
         
-        copy = _body;//TODO For now, copy is not a real copy of body, printing removes events from evenList
-
-        while (copy.Count > 1)
+        while (_body.Count > 1)
         {
-            result += copy.Dequeue() + ", ";
+            var e = _body.Dequeue();
+            result += e + ", ";
+            recreationList.Add(e);
         }
-
-        result += copy.Dequeue();
+        var last = _body.Dequeue();
+        result += last;
+        recreationList.Add(last);
+        
+        // recreation of the Queue
+        recreationList.ForEach( e => {_body.Enqueue(e, e.Time);});
+        
         result += " ]";
         
         return result;
