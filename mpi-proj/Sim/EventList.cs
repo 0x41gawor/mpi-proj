@@ -2,7 +2,7 @@
 
 public class EventList
 {
-    private PriorityQueue<Event, double> _body;
+    private readonly PriorityQueue<Event, double> _body;
 
     public EventList()
     {
@@ -24,6 +24,12 @@ public class EventList
         var result = "EventList: [ ";
 
         var recreationList = new List<Event>();
+
+        if (_body.Count == 0)
+        {
+            result += "]";
+            return result;
+        }
         
         while (_body.Count > 1)
         {

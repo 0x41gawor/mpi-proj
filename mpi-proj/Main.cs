@@ -1,4 +1,6 @@
-﻿namespace mpi_proj;
+﻿using mpi_proj.Algorithm;
+
+namespace mpi_proj;
 
 public class Main
 {
@@ -14,19 +16,22 @@ public class Main
 
     public Main()
     {
-        _algInit = new Algorithm.Init();
-        _algTime = new Algorithm.Time();
-        _algEvent = new Algorithm.Event();
-
         _eventList = new Sim.EventList();
         _system = new System.System();
+        
+        _algInit = new Algorithm.Init(ref _simTime, ref _system, ref _eventList);
+        _algTime = new Algorithm.Time(ref _eventList, ref _simTime);
+        _algEvent = new Algorithm.Event();
     }
 
     public void Run()
     {
-        _algInit.Run(ref _simTime, ref _system, ref _eventList);
-        Console.WriteLine(_eventList.ToString());
-        Console.WriteLine(_eventList.ToString());
-        // _algTime.Run();
+        _algInit.Run();
+        Console.WriteLine(_eventList);
+        var e = _eventList.Pop();
+        var e1 = _algTime.Run();
+        Console.WriteLine(e);
+        Console.WriteLine(e1);
+        Console.WriteLine(_eventList);
     }
 }
