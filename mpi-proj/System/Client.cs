@@ -2,5 +2,15 @@
 
 public class Client
 {
-    private double arrivalTime;
+    public double ArrivalTime { get; set; }
+
+    public Client(double arrivalTime)
+    {
+        ArrivalTime = arrivalTime;
+    }
+
+    public override string ToString()
+    {
+        return $"Client(arrivalTime: {ArrivalTime})";
+    }
 }
