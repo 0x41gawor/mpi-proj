@@ -42,7 +42,14 @@ public class Event
         switch (_system.Server.Status)
         {
             case ServerStatusEnum.Busy:
-                _system.Queue.Push(new Client(_simTime.Value));
+                var stream = e.Type switch
+                {
+                    EventTypeEnum.ArrivalA => StreamEnum.A,
+                    EventTypeEnum.ArrivalB => StreamEnum.B,
+                    EventTypeEnum.ArrivalC => StreamEnum.C,
+                    _ => StreamEnum.A
+                };
+                _system.Queue.Push(new Client(_simTime.Value, stream));
                 break;
             case ServerStatusEnum.Free:
                 _system.Server.Status = ServerStatusEnum.Busy;
