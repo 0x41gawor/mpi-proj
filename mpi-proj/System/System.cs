@@ -2,19 +2,18 @@
 
 public class System
 {
-    private Server _server;
-    private Queue _queue;
-
+    public Server Server { get; set; }
+    public Queue Queue { get; set; }
 
     public System()
     {
-        _server = new Server();
-        _queue = new Queue();
+        Server = new Server();
+        Queue = new Queue();
     }
     
     public void Init()
     {
-        _server.Status = ServerStatusEnum.Free;
+        Server.Status = ServerStatusEnum.Free;
         //TODO Stats to be implemented
         
     }

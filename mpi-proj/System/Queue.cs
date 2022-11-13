@@ -2,7 +2,7 @@
 
 public class Queue
 {
-    private PriorityQueue<Client, double> _body;
+    private readonly PriorityQueue<Client, double> _body;
     public int ClientsCount { get; set; }
 
     public bool IsEmpty { get; set; }
