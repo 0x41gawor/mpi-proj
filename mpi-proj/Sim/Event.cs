@@ -2,19 +2,18 @@
 
 public class Event
 {
-    private double _time;
-    private EventTypeEnum _type;
+    public double Time { get; }
+
+    public EventTypeEnum Type { get; }
 
     public Event(double time, EventTypeEnum type)
     {
-        _time = time;
-        _type = type;
+        Time = time;
+        Type = type;
     }
-    
-    public double Time => _time;
 
     public override string ToString()
     {
-        return $"Event(time: {_time}, type: {_type})";
+        return $"Event(time: {Time}, type: {Type})";
     }
 }
