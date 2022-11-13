@@ -4,7 +4,6 @@ public class Queue
 {
     private readonly PriorityQueue<Client, double> _body;
     public int ClientsCount { get; set; }
-
     public bool IsEmpty { get; set; }
 
     public Queue()
