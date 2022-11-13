@@ -26,17 +26,19 @@ public class Event
     {
         return e.Type switch
         {
-            EventTypeEnum.Arrival => Arrival(),
+            EventTypeEnum.ArrivalA => Arrival(e),
+            EventTypeEnum.ArrivalB => Arrival(e),
+            EventTypeEnum.ArrivalC => Arrival(e),
             EventTypeEnum.Departure => Departure(),
             EventTypeEnum.End => End(),
             _ => true
         };
     }
 
-    private bool Arrival()
+    private bool Arrival(Sim.Event e)
     {
         // Plan out the next arrival
-        _eventList.Push(new Sim.Event(_simTime.Value + _arrivalLib.Run(), EventTypeEnum.Arrival));
+        _eventList.Push(new Sim.Event(_simTime.Value + _arrivalLib.Run(), e.Type));
         switch (_system.Server.Status)
         {
             case ServerStatusEnum.Busy:
