@@ -14,6 +14,6 @@ public class Event
 
     public override string ToString()
     {
-        return $"Event(time: {Time}, type: {Type})";
+        return $"Event(time: {Time:0.00}, type: {Type})";
     }
 }

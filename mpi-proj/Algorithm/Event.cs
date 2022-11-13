@@ -9,11 +9,17 @@ public class Event
     private readonly Sim.EventList _eventList;
     private readonly System.System _system;
 
-    public Event(ref Sim.Time simTime, ref Sim.EventList eventList, ref System.System system)
+    private readonly Algorithm.Lib.ILib _arrivalLib;
+    private readonly Algorithm.Lib.ILib _departureLib;
+
+    public Event(ref Sim.Time simTime, ref Sim.EventList eventList, ref System.System system,
+        Lib.ILib arrivalLib, Lib.ILib departureLib)
     {
         _simTime = simTime;
         _eventList = eventList;
         _system = system;
+        _arrivalLib = arrivalLib;
+        _departureLib = departureLib;
     }
 
     public bool Run(Sim.Event e)
@@ -30,7 +36,7 @@ public class Event
     private bool Arrival()
     {
         // Plan out the next arrival
-        _eventList.Push(new Sim.Event(_simTime.Value + 1.5, EventTypeEnum.Arrival));
+        _eventList.Push(new Sim.Event(_simTime.Value + _arrivalLib.Run(), EventTypeEnum.Arrival));
         switch (_system.Server.Status)
         {
             case ServerStatusEnum.Busy:
@@ -38,7 +44,7 @@ public class Event
                 break;
             case ServerStatusEnum.Free:
                 _system.Server.Status = ServerStatusEnum.Busy;
-                _eventList.Push(new Sim.Event(_simTime.Value + 2, EventTypeEnum.Departure));
+                _eventList.Push(new Sim.Event(_simTime.Value + _departureLib.Run(), EventTypeEnum.Departure));
                 break;
         }
         return false;
@@ -53,7 +59,7 @@ public class Event
                 break;
             case false:
                 var client = _system.Queue.Pop();
-                _eventList.Push(new Sim.Event(_simTime.Value + 2, EventTypeEnum.Departure));
+                _eventList.Push(new Sim.Event(_simTime.Value + _departureLib.Run(), EventTypeEnum.Departure));
                 break;
         }
         
