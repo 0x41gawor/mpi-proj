@@ -4,7 +4,7 @@ namespace mpi_proj.Algorithm;
 
 public class Init
 {
-    private Sim.Time _simTime;                    // _simTime reference
+    private readonly Sim.Time _simTime;                    // _simTime reference
     private readonly Sim.EventList _eventList;  // _eventList reference
     private readonly System.System _system;     // _system reference
 
