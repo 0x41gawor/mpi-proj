@@ -25,7 +25,7 @@ public class Main
         _stats = new Stats();
 
         var arrivalLib = new Algorithm.Lib.LibExp(2.0);
-        var departureLib = new Algorithm.Lib.LibExp(1.5);
+        var departureLib = new Algorithm.Lib.LibGen(0.5, 1.0, 2.0);
         
         _algInit = new Algorithm.Init(ref _simTime, ref _system, ref _eventList);
         _algTime = new Algorithm.Time(ref _simTime, ref _eventList);
@@ -49,6 +49,5 @@ public class Main
             Console.WriteLine(_eventList);
         }
         Console.WriteLine(_stats.Report());
-        Console.WriteLine(_system.Queue);
     }
 }
