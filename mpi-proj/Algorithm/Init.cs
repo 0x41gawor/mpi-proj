@@ -21,7 +21,7 @@ public class Init
         //System state initialization
         _system.Init();
         //EventList initialization
-        _eventList.Push(new Sim.Event(20.0 , EventTypeEnum.End)); //TODO Extract const values 
+        _eventList.Push(new Sim.Event(1000.0 , EventTypeEnum.End)); //TODO Extract const values 
         _eventList.Push(new Sim.Event(0.0, EventTypeEnum.ArrivalA));
         _eventList.Push(new Sim.Event(0.1, EventTypeEnum.ArrivalB));
         _eventList.Push(new Sim.Event(0.2, EventTypeEnum.ArrivalC));

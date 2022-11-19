@@ -46,6 +46,7 @@ public class Event
             EventTypeEnum.ArrivalC => StreamEnum.C,
             _ => StreamEnum.A
         };
+        _stats.Arrive(stream);
         // Plan out the next arrival
         _eventList.Push(new Sim.Event(_simTime.Value + _arrivalLib.Run(stream), e.Type));
         switch (_system.Server.Status)
