@@ -2,5 +2,5 @@
 
 public interface ILib
 {
-     double Run();
+     double Run(System.StreamEnum stream);
 }

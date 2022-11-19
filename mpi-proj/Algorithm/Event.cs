@@ -47,7 +47,7 @@ public class Event
             _ => StreamEnum.A
         };
         // Plan out the next arrival
-        _eventList.Push(new Sim.Event(_simTime.Value + _arrivalLib.Run(), e.Type));
+        _eventList.Push(new Sim.Event(_simTime.Value + _arrivalLib.Run(stream), e.Type));
         switch (_system.Server.Status)
         {
             case ServerStatusEnum.Busy:
@@ -56,7 +56,7 @@ public class Event
             case ServerStatusEnum.Free:
                 _system.Server.Status = ServerStatusEnum.Busy;
                 _stats.Delay(stream, 0.0);
-                _eventList.Push(new Sim.Event(_simTime.Value + _departureLib.Run(), EventTypeEnum.Departure));
+                _eventList.Push(new Sim.Event(_simTime.Value + _departureLib.Run(stream), EventTypeEnum.Departure));
                 break;
         }
         return false;
@@ -72,7 +72,7 @@ public class Event
             case false:
                 var client = _system.Queue.Pop();
                 _stats.Delay(client.Stream, _simTime.Value - client.ArrivalTime);
-                _eventList.Push(new Sim.Event(_simTime.Value + _departureLib.Run(), EventTypeEnum.Departure));
+                _eventList.Push(new Sim.Event(_simTime.Value + _departureLib.Run(client.Stream), EventTypeEnum.Departure));
                 break;
         }
         
