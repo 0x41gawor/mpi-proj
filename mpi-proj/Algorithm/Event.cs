@@ -46,8 +46,9 @@ public class Event
             EventTypeEnum.ArrivalC => StreamEnum.C,
             _ => StreamEnum.A
         };
+        _stats.Arrive(stream);
         // Plan out the next arrival
-        _eventList.Push(new Sim.Event(_simTime.Value + _arrivalLib.Run(), e.Type));
+        _eventList.Push(new Sim.Event(_simTime.Value + _arrivalLib.Run(stream), e.Type));
         switch (_system.Server.Status)
         {
             case ServerStatusEnum.Busy:
@@ -55,8 +56,10 @@ public class Event
                 break;
             case ServerStatusEnum.Free:
                 _system.Server.Status = ServerStatusEnum.Busy;
-                _stats.Delay(stream, 0.0);
-                _eventList.Push(new Sim.Event(_simTime.Value + _departureLib.Run(), EventTypeEnum.Departure));
+                _stats.DelayQueue(stream, 0.0);
+                // plan out the departure
+                _system.Server.CurrentClient = new Client(_simTime.Value, stream);
+                _eventList.Push(new Sim.Event(_simTime.Value + _departureLib.Run(stream), EventTypeEnum.Departure));
                 break;
         }
         return false;
@@ -64,15 +67,20 @@ public class Event
 
     private bool Departure()
     {
+        var departedClient = _system.Server.CurrentClient;
+        _stats.DelaySystem(departedClient!.Stream, _simTime.Value - departedClient.ArrivalTime);
         switch (_system.Queue.IsEmpty)
         {
             case true:
                 _system.Server.Status = ServerStatusEnum.Free;
+                _system.Server.CurrentClient = null;
                 break;
             case false:
-                var client = _system.Queue.Pop();
-                _stats.Delay(client.Stream, _simTime.Value - client.ArrivalTime);
-                _eventList.Push(new Sim.Event(_simTime.Value + _departureLib.Run(), EventTypeEnum.Departure));
+                var nextClient = _system.Queue.Pop();
+                _stats.DelayQueue(nextClient.Stream, _simTime.Value - nextClient.ArrivalTime);
+                // plan out the departure
+                _system.Server.CurrentClient = nextClient;
+                _eventList.Push(new Sim.Event(_simTime.Value + _departureLib.Run(nextClient.Stream), EventTypeEnum.Departure));
                 break;
         }
         

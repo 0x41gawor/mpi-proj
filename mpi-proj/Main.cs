@@ -1,10 +1,10 @@
-﻿using mpi_proj.Algorithm;
-using mpi_proj.Sim;
+﻿using mpi_proj.Sim;
 
 namespace mpi_proj;
 
 public class Main
 {
+    // Simulation
     private readonly Sim.Time _simTime;
     private readonly System.System _system;
     private readonly Sim.EventList _eventList;
@@ -24,10 +24,10 @@ public class Main
         
         _stats = new Stats();
 
-        var arrivalLib = new Algorithm.Lib.LibExp(2.0);
-        var departureLib = new Algorithm.Lib.LibExp(1.5);
+        var arrivalLib = new Algorithm.Lib.LibExp(Config.Mean); 
+        var departureLib = new Algorithm.Lib.LibGen(Config.MeanA, Config.MeanB, Config.MeanC); 
         
-        _algInit = new Algorithm.Init(ref _simTime, ref _system, ref _eventList);
+        _algInit = new Algorithm.Init(ref _simTime, ref _system, ref _eventList, Config.SimulationTime);
         _algTime = new Algorithm.Time(ref _simTime, ref _eventList);
         _algEvent = new Algorithm.Event(ref _simTime, ref _eventList, ref _system, ref _stats, arrivalLib, departureLib);
     }
@@ -49,6 +49,5 @@ public class Main
             Console.WriteLine(_eventList);
         }
         Console.WriteLine(_stats.Report());
-        Console.WriteLine(_system.Queue);
     }
 }

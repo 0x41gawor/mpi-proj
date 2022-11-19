@@ -8,7 +8,7 @@ public class LibExp : ILib
       _mean = mean;
    }
    
-   public double Run()
+   public double Run(System.StreamEnum stream)
    {
       var random = new Random();
       
