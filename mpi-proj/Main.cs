@@ -1,5 +1,4 @@
-﻿using mpi_proj.Algorithm;
-using mpi_proj.Sim;
+﻿using mpi_proj.Sim;
 
 namespace mpi_proj;
 
@@ -24,8 +23,8 @@ public class Main
         
         _stats = new Stats();
 
-        var arrivalLib = new Algorithm.Lib.LibExp(2.0);
-        var departureLib = new Algorithm.Lib.LibGen(0.5, 1.0, 2.0);
+        var arrivalLib = new Algorithm.Lib.LibExp(2.0); //TODO Extract const values 
+        var departureLib = new Algorithm.Lib.LibGen(0.5, 1.0, 2.0);//TODO Extract const values 
         
         _algInit = new Algorithm.Init(ref _simTime, ref _system, ref _eventList);
         _algTime = new Algorithm.Time(ref _simTime, ref _eventList);

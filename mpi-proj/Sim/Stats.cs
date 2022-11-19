@@ -4,14 +4,18 @@ namespace mpi_proj.Sim;
 
 public class Stats
 {
-    private readonly double[] _delay;
-    private readonly int[] _delayCounts;
+    private readonly double[] _delayQueue;
+    private readonly int[] _delayQueueCounts;
+    private readonly double[] _delaySystem;
+    private readonly int[] _delaySystemCounts;
     private readonly int[] _arrivedCounts;
 
     public Stats()
     {
-        _delay = new double[3];
-        _delayCounts = new int[3];
+        _delayQueue = new double[3];
+        _delayQueueCounts = new int[3];
+        _delaySystem = new double[3];
+        _delaySystemCounts = new int[3];
         _arrivedCounts = new int[3];
     }
 
@@ -31,41 +35,63 @@ public class Stats
         }
     }
 
-    public void Delay(StreamEnum stream, double value)
+    public void DelayQueue(StreamEnum stream, double value)
     {
         switch (stream)
         {
             case StreamEnum.A:
-                Console.WriteLine($"Strumien A: {value}");
-                _delay[0] += value;
-                _delayCounts[0]++;
+                _delayQueue[0] += value;
+                _delayQueueCounts[0]++;
                 break;
             case StreamEnum.B:
-                Console.WriteLine($"Strumien B: {value}");
-                _delay[1] += value;
-                _delayCounts[1]++;
+                _delayQueue[1] += value;
+                _delayQueueCounts[1]++;
                 break;
             case StreamEnum.C:
-                Console.WriteLine($"Strumien C: {value}");
-                _delay[2] += value;
-                _delayCounts[2]++;
+                _delayQueue[2] += value;
+                _delayQueueCounts[2]++;
                 break;
         }
     }
 
+    public void DelaySystem(StreamEnum stream, double value)
+    {
+        switch (stream)
+        {
+            case StreamEnum.A:
+                _delaySystem[0] += value;
+                _delaySystemCounts[0]++;
+                break;
+            case StreamEnum.B:
+                _delaySystem[1] += value;
+                _delaySystemCounts[1]++;
+                break;
+            case StreamEnum.C:
+                _delaySystem[2] += value;
+                _delaySystemCounts[2]++;
+                break;
+        }
+    }
     public string Report()
     {
-        var mean = new double[3];
+        var meanQueue = new double[3];
         for (var i = 0; i < 3; i++)
         {
-            mean[i] = _delay[i] / _delayCounts[i];
+            meanQueue[i] = _delayQueue[i] / _delayQueueCounts[i];
         }
+        var meanSystem = new double[3];
+        for (var i = 0; i < 3; i++)
+        {
+            meanSystem[i] = _delaySystem[i] / _delaySystemCounts[i];
+        }
+        
 
         string header = "================R-A-P-O-R-T==========================\n";
         string arrived = $"Arrived[ A: {_arrivedCounts[0]}, B: {_arrivedCounts[1]}, C: {_arrivedCounts[2]}]\n";
-        string delays = $"Delays[ A: {mean[0]}, B: {mean[1]}, C: {mean[2]}]\n";
-        string served = $"Served[ A: {_delayCounts[0]}, B: {_delayCounts[1]}, C: {_delayCounts[2]}]\n";
+        string served = $"Served[ A: {_delayQueueCounts[0]}, B: {_delayQueueCounts[1]}, C: {_delayQueueCounts[2]}]\n";
+        string delaysQueue = $"Delays in queue[ A: {meanQueue[0]}, B: {meanQueue[1]}, C: {meanQueue[2]}]\n";
+        string delaysSystem = $"Delays in system[ A: {meanSystem[0]}, B: {meanSystem[1]}, C: {meanSystem[2]}]\n";
 
-        return header + arrived +  served + delays;
+        return header + arrived + served + delaysQueue + delaysSystem;
     }
 }
