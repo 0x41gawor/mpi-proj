@@ -3,12 +3,12 @@
 public class System
 {
     public Server Server { get; set; }
-    public Queue Queue { get; set; }
+    public Scheduler Queue { get; set; }
 
     public System()
     {
         Server = new Server();
-        Queue = new Queue();
+        Queue = new Scheduler();
     }
     
     public void Init()

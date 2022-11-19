@@ -9,24 +9,27 @@ public class Main
     private readonly System.System _system;
     private readonly Sim.EventList _eventList;
     
-    //Algorithms
+    // Algorithms
     private readonly Algorithm.Init _algInit;
     private readonly Algorithm.Time _algTime;
     private readonly Algorithm.Event _algEvent;
-
+    // Stats
+    private readonly Sim.Stats _stats;
 
     public Main()
     {
         _simTime = new Sim.Time();
         _eventList = new Sim.EventList();
         _system = new System.System();
+        
+        _stats = new Stats();
 
         var arrivalLib = new Algorithm.Lib.LibExp(2.0);
         var departureLib = new Algorithm.Lib.LibExp(1.5);
         
         _algInit = new Algorithm.Init(ref _simTime, ref _system, ref _eventList);
         _algTime = new Algorithm.Time(ref _simTime, ref _eventList);
-        _algEvent = new Algorithm.Event(ref _simTime, ref _eventList, ref _system, arrivalLib, departureLib);
+        _algEvent = new Algorithm.Event(ref _simTime, ref _eventList, ref _system, ref _stats, arrivalLib, departureLib);
     }
 
     public void Run()
@@ -45,5 +48,7 @@ public class Main
             end = _algEvent.Run(e);
             Console.WriteLine(_eventList);
         }
+        Console.WriteLine(_stats.Report());
+        Console.WriteLine(_system.Queue);
     }
 }

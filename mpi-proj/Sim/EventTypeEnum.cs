@@ -2,7 +2,9 @@
 
 public enum EventTypeEnum
 {
-    Arrival,
+    ArrivalA,
+    ArrivalB,
+    ArrivalC,
     Departure,
     End
 }
