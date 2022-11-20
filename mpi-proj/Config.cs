@@ -11,5 +11,5 @@ public static class Config
     // mean value in departure distribution for stream C
     public const double MeanC = 2.0;
     // simulation time
-    public const double SimulationTime = 1000.0;
+    public const double SimulationTime = 100000.0;
 }

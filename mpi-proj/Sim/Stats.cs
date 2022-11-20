@@ -84,14 +84,17 @@ public class Stats
         {
             meanSystem[i] = _delaySystem[i] / _delaySystemCounts[i];
         }
-        
+
+        var overallDelayQueue = (meanQueue[0] + meanQueue[1] + meanQueue[2]) / 3;
+        var overallDelaySystem = (meanSystem[0] + meanSystem[1] + meanSystem[2]) / 3;
 
         string header = "================R-A-P-O-R-T==========================\n";
         string arrived = $"Arrived[ A: {_arrivedCounts[0]}, B: {_arrivedCounts[1]}, C: {_arrivedCounts[2]}]\n";
         string served = $"Served[ A: {_delayQueueCounts[0]}, B: {_delayQueueCounts[1]}, C: {_delayQueueCounts[2]}]\n";
         string delaysQueue = $"Delays in queue[ A: {meanQueue[0]}, B: {meanQueue[1]}, C: {meanQueue[2]}]\n";
         string delaysSystem = $"Delays in system[ A: {meanSystem[0]}, B: {meanSystem[1]}, C: {meanSystem[2]}]\n";
-
-        return header + arrived + served + delaysQueue + delaysSystem;
+        string overallDelays = $"Overall delays for all streams[ In Queue: {overallDelayQueue}, In System: {overallDelaySystem} ]";
+        
+        return header + arrived + served + delaysQueue + delaysSystem+ overallDelays;
     }
 }
