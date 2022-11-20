@@ -91,9 +91,9 @@ public class Stats
         string header = "================R-A-P-O-R-T==========================\n";
         string arrived = $"Arrived[ A: {_arrivedCounts[0]}, B: {_arrivedCounts[1]}, C: {_arrivedCounts[2]}]\n";
         string served = $"Served[ A: {_delayQueueCounts[0]}, B: {_delayQueueCounts[1]}, C: {_delayQueueCounts[2]}]\n";
-        string delaysQueue = $"Delays in queue[ A: {meanQueue[0]}, B: {meanQueue[1]}, C: {meanQueue[2]}]\n";
-        string delaysSystem = $"Delays in system[ A: {meanSystem[0]}, B: {meanSystem[1]}, C: {meanSystem[2]}]\n";
-        string overallDelays = $"Overall delays for all streams[ In Queue: {overallDelayQueue}, In System: {overallDelaySystem} ]";
+        string delaysQueue = $"Delays in queue[ A: {meanQueue[0]:0.00}, B: {meanQueue[1]:0.00}, C: {meanQueue[2]:0.00}]\n";
+        string delaysSystem = $"Delays in system[ A: {meanSystem[0]:0.00}, B: {meanSystem[1]:0.00}, C: {meanSystem[2]:0.00}]\n";
+        string overallDelays = $"Overall delays for all streams[ In Queue: {overallDelayQueue:0.00}, In System: {overallDelaySystem:0.00} ]";
         
         return header + arrived + served + delaysQueue + delaysSystem+ overallDelays;
     }

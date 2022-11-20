@@ -5,9 +5,9 @@ public static class Config
     // mean value in arrival distribution (all streams)
     public const double Mean = 2.0;
     // mean value in departure distribution for stream A
-    public const double MeanA = 0.5;
+    public const double MeanA = 0.75;
     // mean value in departure distribution for stream B
-    public const double MeanB = 1.0;
+    public const double MeanB = 0.75;
     // mean value in departure distribution for stream C
     public const double MeanC = 2.0;
     // simulation time
