@@ -37,16 +37,12 @@ public class Main
         _algInit.Run();
 
         var end = false;
-        Console.WriteLine(_eventList);
         while(!end)
         {
-            Console.WriteLine($"------------------");
             // Take next event from the event list
             var e = _algTime.Run();
-            Console.WriteLine($"Event popped: {e}");
             // Handle the event
             end = _algEvent.Run(e);
-            Console.WriteLine(_eventList);
         }
         Console.WriteLine(_stats.Report());
     }
