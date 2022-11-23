@@ -11,6 +11,10 @@ public class Stats
     private readonly int[] _delaySystemCounts;
     private readonly int[] _arrivedCounts;
 
+    private  double _workloadRects;
+    private  double _workloadLastSimTime;
+    private  double _workloadValue;
+
     public Stats()
     {
         _delayQueue = new double[3];
@@ -19,6 +23,10 @@ public class Stats
         _delaySystem = new double[3];
         _delaySystemCounts = new int[3];
         _arrivedCounts = new int[3];
+        
+        _workloadRects = 0.0;
+        _workloadLastSimTime = 0.0;
+        _workloadValue = 0.0;
     }
 
     public void Arrive(StreamEnum stream)
@@ -90,10 +98,18 @@ public class Stats
 
         return sigma1;
     }
-    
 
-    public string Report()
+    public void Workload(double simTime, ServerStatusEnum status)
     {
+        var timeInterval = simTime - _workloadLastSimTime;
+        _workloadLastSimTime = simTime;
+        var rect = timeInterval * (int)status;
+        _workloadRects += rect;
+        _workloadValue = _workloadRects / simTime;
+    }
+    public string Report(System.System system, double simTime)
+    {
+        Workload(simTime, system.Server.Status);
         var meanQueue = new double[3];
         for (var i = 0; i < 3; i++)
         {
@@ -114,9 +130,10 @@ public class Stats
         string served = $"Served[ A: {_delayQueueCounts[0]}, B: {_delayQueueCounts[1]}, C: {_delayQueueCounts[2]}]\n";
         string delaysQueue = $"Delays in queue[ A: {meanQueue[0]:0.00}, B: {meanQueue[1]:0.00}, C: {meanQueue[2]:0.00}]\n";
         string delaysSystem = $"Delays in system[ A: {meanSystem[0]:0.00}, B: {meanSystem[1]:0.00}, C: {meanSystem[2]:0.00}]\n";
-        string sigma1Show = $"Sigma1 for type of packet[ A: {sigma[0]}, B: {sigma[1]}, C: {sigma[2]}]\n";
-        string overallDelays = $"Overall delays for all streams[ In Queue: {overallDelayQueue:0.00}, In System: {overallDelaySystem:0.00} ]";
+        string sigma1Show = $"Variance[ A: {sigma[0]:0.00}, B: {sigma[1]:0.00}, C: {sigma[2]:0.00} ]\n";
+        string overallDelays = $"Overall delays for all streams[ In Queue: {overallDelayQueue:0.00}, In System: {overallDelaySystem:0.00} ]\n";
+        string workload = $"Server workload: {_workloadValue}\n";
         
-        return header + arrived + served + delaysQueue + delaysSystem + sigma1Show + overallDelays;
+        return header + arrived + served + delaysQueue + delaysSystem + sigma1Show + overallDelays + workload;
     }
 }

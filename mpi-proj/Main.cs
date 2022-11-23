@@ -44,6 +44,6 @@ public class Main
             // Handle the event
             end = _algEvent.Run(e);
         }
-        Console.WriteLine(_stats.Report());
+        Console.WriteLine(_stats.Report(_system, _simTime.Value));
     }
 }

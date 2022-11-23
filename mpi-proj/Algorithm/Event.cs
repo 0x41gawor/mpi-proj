@@ -55,6 +55,7 @@ public class Event
                 _system.Queue.Push(new Client(_simTime.Value, stream));
                 break;
             case ServerStatusEnum.Free:
+                _stats.Workload(_simTime.Value, _system.Server.Status);
                 _system.Server.Status = ServerStatusEnum.Busy;
                 _stats.DelayQueue(stream, 0.0);
                 // plan out the departure
@@ -72,6 +73,7 @@ public class Event
         switch (_system.Queue.IsEmpty)
         {
             case true:
+                _stats.Workload(_simTime.Value, _system.Server.Status);
                 _system.Server.Status = ServerStatusEnum.Free;
                 _system.Server.CurrentClient = null;
                 break;

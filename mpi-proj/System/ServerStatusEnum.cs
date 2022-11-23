@@ -2,6 +2,6 @@
 
 public enum ServerStatusEnum
 {
-    Free,
-    Busy
+    Free = 0,
+    Busy = 1
 }

@@ -26,7 +26,7 @@ public class Init
         //EventList initialization
         _eventList.Push(new Sim.Event(_simulationTime , EventTypeEnum.End)); 
         _eventList.Push(new Sim.Event(0.0, EventTypeEnum.ArrivalA));
-        _eventList.Push(new Sim.Event(0.1, EventTypeEnum.ArrivalB));
-        _eventList.Push(new Sim.Event(0.2, EventTypeEnum.ArrivalC));
+        _eventList.Push(new Sim.Event(0.0, EventTypeEnum.ArrivalB));
+        _eventList.Push(new Sim.Event(0.0, EventTypeEnum.ArrivalC));
     }
 }
